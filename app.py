@@ -8,7 +8,7 @@ import asyncio
 from shazamio import Shazam
 from collections import defaultdict
 from urllib.parse import urlencode
-from user_agents import generate_user_agent
+from user_agent import generate_user_agent
 import random
 import os
 import aiohttp
