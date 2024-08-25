@@ -1,0 +1,974 @@
+@font-face {
+    font-family: 'GT Pressura Mono';
+    src: url('../fonts/GT-Pressura-Mono-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body, html {
+    font-family: 'GT Pressura Mono', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #F4F3EF;
+    color: #333;
+}
+
+
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #AFE1AF;
+    transition: background-color 0.3s ease;
+}
+
+.header-content {
+    padding-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+}
+
+header nav a {
+    color: #333;
+    text-decoration: none;
+    margin-right: 1rem;
+    font-size: 0.8rem;
+    padding: 0.25rem;
+    transition: background-color 0.3s ease;
+}
+
+header nav a.active {
+    font-weight: bold;
+}
+
+.music-service-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 40px;
+    color: white;
+    font-size: 14px;
+    padding-top: 6px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    margin: 0 10px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #F4F3EF;
+    transition: .4s;
+    border-radius: 20px;
+}
+
+input:checked + .slider {
+    background-color: #FF7F7F;
+}
+
+main {
+    margin-top: 40px; /* Adjust this value based on your header height */
+}
+
+.two-column-layout {
+    display: flex;
+    width: 100%;
+}
+
+.current-service img, .switch-service img {
+    margin-right: 5px;
+}
+
+.left-column {
+    margin-right: 0;
+    flex: 1;
+    padding: 2rem;
+    background-color: #F4F3EF;
+    min-height: calc(100vh - 50px); /* Adjust based on your header height */
+}
+
+.right-column {
+    margin-left: 0;
+    flex: 1;
+    background-color: #e5e3d9;
+    padding: 2rem;
+}
+
+.logo {
+    font-family: 'Damion', cursive;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+.logo a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.search-container {
+    display: flex;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #333;
+    position: relative;
+}
+
+#youtube-url-input, #playlist-title-input {
+    font-family: 'GT Pressura Mono', sans-serif;
+    flex-grow: 1;
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    border: none;
+    background: transparent;
+    outline: none;
+}
+
+#search-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+}
+
+#search-button::after {
+    content: "⌕";
+    font-size: 1.5rem;
+}
+
+#song-list, #tracks-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#song-list li, #tracks-list li {
+    margin-bottom: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+#song-list li img, #tracks-list li img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.song-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.song-title {
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: text-decoration 0.3s ease;
+}
+
+.song-artist {
+    font-size: 0.8rem;
+    color: #666;
+    transition: text-decoration 0.3s ease;
+}
+
+#video-container {
+    margin-top: 20px; /* Reduced from previous 100px */
+    margin-bottom: 20px;
+    width: 100%;
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+}
+
+#video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.playlist-info p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+#cover-image img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 4px;
+}
+
+#save-playlist {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #8CB48C;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+#save-playlist:hover {
+    background-color: #AFE1AF;
+}
+
+.content-section {
+    display: none;
+}
+
+.content-section.active {
+    display: block;
+}
+
+#playlist-title-input {
+    font-family: 'GT Pressura Mono', sans-serif;
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #F4F3EF;  /* Match the left panel color */
+    color: #333;  /* Ensure text is visible */
+}
+
+#playlist-content {
+    margin-top: 20px;
+}
+
+h2 {
+    font-family: 'GT Pressura Mono', sans-serif;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.loading-icon {
+    width: 50px;
+    height: 50px;
+}
+
+#song-list li:hover .song-title,
+#tracks-list li:hover .song-title,
+#song-list li:hover .song-artist,
+#tracks-list li:hover .song-artist {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.save-setlist-container {
+    font-family: 'GT Pressura Mono', sans-serif;
+    margin-top: 20px;
+}
+
+.save-setlist-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #38CB82;
+    color: white;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 4px;
+}
+
+.save-setlist-button:hover {
+    background-color: #AFE1AF;
+}
+
+.service-selection, .service-toggle {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #666;
+}
+
+.service-toggle {
+    margin-top: 10px;
+    color: #999;
+    cursor: pointer;
+}
+
+.service-text, .toggle-text {
+    font-size: 14px;
+    color: #666;
+}
+
+.service-logo {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin: 0 5px;
+    position: relative;
+    top: -4px;
+}
+
+.service-name {
+    font-weight: bold;
+}
+
+.current-service, .switch-service {
+    display: flex;
+    align-items: center;
+}
+
+.service-dot {
+    font-weight: bold;
+    margin-left: 2px;
+}
+
+.service-toggle-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #666;
+    padding: 0;
+    margin-left: 5px;
+}
+
+.service-toggle-button:hover {
+    text-decoration: underline;
+}
+
+.share-options {
+    margin-top: 20px;
+    text-align: left; /* Align "SHARE" to the left */
+    padding-left: 20px; /* Add padding to align with the share buttons */
+}
+
+.share-header {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.share-buttons {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.share-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.share-icon img {
+    width: 20px; /* Adjust to desired size */
+    height: 20px;
+    transition: opacity 0.3s ease;
+    vertical-align: middle; /* Align the icon with the text */
+}
+
+.share-icon:hover img {
+    opacity: 0.7;
+}
+
+.copy-link {
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+}
+
+.share-button:hover .share-icon {
+    opacity: 0.7;
+}
+
+.share-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.share-button img {
+    width: 20px; /* Adjust icon size to match the example */
+    height: 20px; /* Ensure height is also 16px to prevent squishing */
+    transition: opacity 0.3s ease;
+    vertical-align: middle;
+}
+
+.share-button:hover img {
+    opacity: 0.7;
+}
+
+.copy-link:hover {
+    text-decoration: underline dotted;
+}
+
+/* General song list item styling */
+#song-list li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+#song-list li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: #e5e3d9;
+    transition: width 0.3s ease;
+    z-index: 1;
+}
+
+#song-list li:hover::before {
+    width: 100%;
+}
+
+#song-list li img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 15px;
+    position: relative;
+    z-index: 2;
+}
+
+#song-list li .song-info {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+/* Hover state for expanding the background */
+#song-list li:hover::before {
+    width: 100%;
+}
+
+/* Styling to ensure the text and image are above the background */
+#song-list li img, 
+#song-list li .song-info {
+    position: relative;
+    z-index: 1;
+}
+
+/* Hover effect for text underlining */
+#song-list li:hover .song-title,
+#song-list li:hover .song-artist {
+    text-decoration: underline;
+}
+
+/* Ensuring text and image aren't displaced by the background expansion */
+#song-list li img {
+    margin-right: 10px;
+    transition: margin-right 0.3s ease;
+}
+
+#song-list li .song-info {
+    padding-left: 0; /* Remove any left padding */
+}
+
+#song-list li:hover .song-info {
+    padding-left: 0; /* Remove any left padding on hover */
+}
+
+.search-results-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+.search-results-container .left-column {
+    flex: 1;
+    min-width: 300px; /* Adjust as needed */
+}
+
+.search-results-container .right-column {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+#playlist-title-container {
+    width: 100%; /* Make sure this takes up the full width */
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#playlist-title-input {
+    width: calc(100% - 20px); /* Adjust width to align with the video */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#video-container {
+    width: 100%;
+    max-width: 100%; /* Ensure it doesn't exceed the available width */
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+#video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#loading-indicator {
+    display: none;
+    position: absolute;
+    left: 25%; /* This centers it in the left panel */
+    transform: translateX(-50%);
+    margin-top: 100px; /* Adjust this value to move it lower */
+    z-index: 1000; /* Ensure it's above other content */
+}
+
+.loading-symbol {
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#song-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#song-list li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    cursor: pointer;
+    overflow: hidden;
+    height: 50px; /* Match the height of the image */
+}
+
+#song-list li:last-child {
+    border-bottom: none;
+}
+
+#song-list li img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.song-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.song-title {
+    font-weight: bold;
+}
+
+.song-artist {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.save-setlist-button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 15px;
+    color: white;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 4px;
+    font-family: 'GT Pressura Mono', sans-serif;
+}
+
+.save-setlist-button {
+    transition: background-color 0.3s ease;
+}
+
+.saving-with, .switch-service {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.5; /* Keep the line height for spacing */
+}
+
+.music-icon {
+    width: 24px; /* Increase width for Apple Music logo */
+    height: auto; /* Maintain aspect ratio */
+    margin-left: 5px;
+}
+
+.save-setlist-button:hover {
+    background-color: #3a3a3a;
+}
+
+.service-selection, .share-options {
+    margin-top: 15px;
+}
+
+.switch-service {
+    color: white; /* Text color */
+    cursor: pointer;
+    text-decoration: none; /* Remove default underline */
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.switch-service {
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.switch-service:hover {
+    text-decoration: underline dotted;
+}
+
+.current-service {
+    font-weight: bold;
+}
+
+.switch-to {
+    margin: 0 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+.spotify, .apple-music {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.save-options {
+    text-align: center;
+    margin-top: 10px;
+    font-family: 'GT Pressura Mono', sans-serif;
+    line-height: 2.5; /* Increase line height for more space between lines */
+}
+
+.saving-with {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.share-buttons {
+    display: flex;
+    align-items: center;
+    gap: 7px; /* Adjust spacing between share buttons */
+}
+
+.share-button:hover {
+    background-color: #e0e0e0;
+}
+
+.header-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+#header {
+    background-color: #E8DCB5;
+    padding: 10px 20px;
+    position: relative;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center; /* Center content vertically */
+}
+
+#header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.nav-left a, .nav-right a {
+    color: #333;
+    text-decoration: none;
+    margin-right: 15px;
+    font-size: 14px;
+}
+
+.nav-right a {
+    margin-left: auto; /* Ensures that the right-side navigation aligns to the right */
+}
+
+.nav-right a:last-child {
+    margin-right: 0;
+}
+
+body[data-service="spotify"] .save-setlist-button {
+    background-color: #38CB82;
+}
+
+body[data-service="apple"] .save-setlist-button {
+    background-color: #FF7F7F;
+}
+
+.nav-left, .nav-right {
+    display: flex;
+    align-items: center;
+}
+
+#header nav .nav-left {
+    display: flex;
+    align-items: center;
+}
+
+#header nav .nav-left a {
+    margin-right: 1rem;
+}
+
+.nav-right a {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.nav-left a {
+    margin-right: 15px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.left-nav a,
+.right-nav a {
+    color: #333;
+    text-decoration: none;
+    margin-right: 1rem;
+    font-size: 0.8rem;
+    padding: 0.25rem;
+    transition: color 0.3s ease;
+}
+
+.left-nav a:hover,
+.right-nav a:hover {
+    color: #000;
+}
+
+#header nav a {
+    color: #333;
+    text-decoration: none;
+    font-size: 0.8rem;
+    padding: 0.25rem;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+    padding-top: 0.5rem;
+}
+
+#header nav a:hover {
+    color: #000;
+    text-decoration: underline dotted;
+}
+
+.toggle-bar {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease;
+    position: absolute;
+    top: 5px;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    margin: 0 10px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #F4F3EF;
+    transition: .4s;
+    border-radius: 20px;
+}
+
+input:checked + .slider {
+    background-color: #FF7F7F;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+.header-wrapper:hover .toggle-bar {
+    height: calc(100% - 5px); /* Cover entire header except top bar */
+}
+
+.top-bar {
+    background-color: #38CB82; /* Default green color */
+    height: 7px; /* Adjust as needed */
+    width: 100%;
+    transition: height 0.3s ease, background-color 0.3s ease;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1001;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.top-bar:hover {
+    height: 50px; /* Increase the height to cover the beige bar fully */
+    transform: translateY(0);
+}
+
+.apple-logo {
+    font-size: 1.2em;
+    vertical-align: middle;
+}
+
+body[data-service="apple"] .top-bar {
+    background-color: #FF7F7F;
+}
+
+body[data-service="spotify"] .top-bar {
+    background-color: #38CB82;
+}
+
+#about-content, #feedback-content {
+    padding: 20px;
+}
+
+.service-toggle span {
+    cursor: pointer;
+    transition: border-bottom 0.3s ease;
+}
+
+.service-toggle span:hover {
+    border-bottom: 1px dotted #666;
+}
+
+.loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#feedback-text {
+    width: 100%; /* Full width to match the button */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: 'GT Pressura Mono', sans-serif;
+    margin-bottom: 10px;
+    box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+#send-feedback-button {
+    width: 100%; /* Make the button take up the full width */
+    padding: 15px;
+    background-color: #38CB82;
+    color: white;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 4px;
+    font-family: 'GT Pressura Mono', sans-serif;
+    margin-top: 10px; /* Add some space above the button */
+    box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+#send-feedback-button:hover {
+    background-color: #3a3a3a;
+}
