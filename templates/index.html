@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MySetlist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Damion&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <div class="header-wrapper">
+            <div class="top-bar">
+                <div class="music-service-toggle">
+                    <span class="current-service">You are saving playlists with <img src="{{ url_for('static', filename='images/spotify.png') }}" alt="Spotify" class="service-logo"> Spotify</span>
+                    <span class="switch-service">Switch to  MUSIC</span>
+                </div>
+            </div>
+            <header id="header">
+                <nav>
+                    <div class="nav-left">
+                        <a href="#home-content" id="home-link" class="active">HOME</a>
+                        <a href="#about-content" id="about-link">ABOUT</a>
+                        <a href="#feedback-content" id="feedback-link">FEEDBACK</a>
+                    </div>
+                    <div class="nav-right">
+                        <a href="#" id="login-button">Login with Spotify</a>
+                    </div>
+                </nav>
+            </header>
+        </div>
+
+        <main>
+            <div class="two-column-layout">
+                <div class="left-column">
+                    <div class="logo">
+                        <a href="/">MySetlist</a>
+                    </div>
+                    <div class="search-container">
+                        <input type="text" id="youtube-url-input" placeholder="Youtube URL">
+                        <button id="search-button"></button>
+                    </div>
+                    <div id="loading-indicator" style="display: none;">
+                        <img src="{{ url_for('static', filename='images/loading.gif') }}" alt="Loading..." class="loading-icon">
+                    </div>
+                    <ul id="song-list"></ul>
+                </div>
+                <div class="right-column">
+                    <div id="home-content" class="content-section active">
+                        <div id="playlist-title-container" style="display: none;">
+                            <h2>PLAYLIST TITLE</h2>
+                            <input type="text" id="playlist-title-input" placeholder="Enter playlist title">
+                        </div>
+                        <div id="video-container"></div>
+                        <div class="save-setlist-container" style="display: none;">
+                            <button id="save-setlist-button" class="save-setlist-button">LOGIN TO SAVE</button>
+                            <div class="service-selection">
+                                <span>Saving with <img src="{{ url_for('static', filename='images/spotify-logo.png') }}" alt="Spotify" class="service-logo"> Spotify.</span>
+                            </div>
+                            <div class="service-toggle">
+                                <span>Switch to  MUSIC</span>
+                            </div>
+                            <div class="share-options">
+                                <h3 class="share-header">SHARE</h3>
+                                <div class="share-buttons">
+                                    <button class="share-button facebook-share">
+                                        <img src="{{ url_for('static', filename='images/facebook-icon.png') }}" alt="Facebook" class="share-icon">
+                                    </button>
+                                    <button class="share-button twitter-share">
+                                        <img src="static/images/twitter_icon.png" alt="Twitter" class="share-icon">
+                                    </button>
+                                    <span class="copy-link">Copy Link</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="about-content" class="content-section">
+                        <h2>About MySetlist</h2>
+                        <p>MySetlist is a web application that allows you to create playlists from YouTube videos of live performances. Simply paste a YouTube URL, and we'll analyze the video to create a playlist of the performed songs.</p>
+                        <p>- a roic passion project</p>
+                    </div>
+                    <div id="feedback-content" class="content-section">
+                        <h2>Feedback</h2>
+                        <p>We'd love to hear your thoughts!</p>
+                        <form id="feedback-form">
+                            <textarea id="feedback-text" rows="4" placeholder="Enter your feedback here"></textarea>
+                            <button type="submit" id="send-feedback-button">Send Feedback</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
