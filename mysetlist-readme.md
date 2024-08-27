@@ -55,4 +55,4 @@ MySetlist is a cutting-edge web application designed to bridge the gap between l
 
 ---
 
-Developed with a love for music by Royce!
+Developed with a love of music by Royce!
