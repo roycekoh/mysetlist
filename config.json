@@ -1,0 +1,8 @@
+{
+    "SPOTIFY_CLIENT_ID": "c3b25478cbf04a39955946a84f58c5d3",
+    "SPOTIFY_CLIENT_SECRET": "21505c5c0fc64f67b80d575e169630dc",
+    "MAILJET_API_KEY": "a25bd9e808edd3fe7c148bf27935f070",
+    "MAILJET_API_SECRET": "de8a152bbfe6827f3d7e36c1eced263f",
+    "FROM_EMAIL": "roycekoh10@gmail.com",
+    "TO_EMAIL": "rsk224@cornell.edu"
+}

@@ -1,5 +1,5 @@
 import io
-import yt_dlp as youtube_dl
+import yt_dlp
 import subprocess
 from flask import Flask, request, render_template, redirect, session, jsonify, url_for, send_from_directory
 import requests
@@ -20,6 +20,11 @@ import smtplib
 from email.mime.text import MIMEText
 from mailjet_rest import Client
 from flask import request, jsonify
+import json
+import backoff
+
+with open('config.json') as config_file:
+    config = json.load(config_file)
 
 cache = {}
 CACHE_TTL = 20000
@@ -29,15 +34,14 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__)
 app.secret_key = os.urandom(24)  # Set a secret key for sessions
 
-# Spotify API credentials
-SPOTIFY_CLIENT_ID = 'c3b25478cbf04a39955946a84f58c5d3'
-SPOTIFY_CLIENT_SECRET = '21505c5c0fc64f67b80d575e169630dc'
+SPOTIFY_CLIENT_ID = config['SPOTIFY_CLIENT_ID']
+SPOTIFY_CLIENT_SECRET = config['SPOTIFY_CLIENT_SECRET']
 SPOTIFY_REDIRECT_URI = 'http://localhost:5000/callback/spotify'
 
-MAILJET_API_KEY = 'a25bd9e808edd3fe7c148bf27935f070'
-MAILJET_API_SECRET = 'de8a152bbfe6827f3d7e36c1eced263f'
-FROM_EMAIL = 'roycekoh10@gmail.com'
-TO_EMAIL = 'rsk224@cornell.edu'
+MAILJET_API_KEY = config['MAILJET_API_KEY']
+MAILJET_API_SECRET = config['MAILJET_API_SECRET']
+FROM_EMAIL = config['FROM_EMAIL']
+TO_EMAIL = config['TO_EMAIL']
 
 # Spotify API endpoints
 SPOTIFY_AUTH_URL = 'https://accounts.spotify.com/authorize'
@@ -166,16 +170,18 @@ async def analyze_video():
 
     return jsonify(songs_response)
 
+@backoff.on_exception(backoff.expo, yt_dlp.utils.DownloadError, max_tries=5)
 def download_audio(youtube_url):
     print("Downloading audio...")
     ydl_opts = {
         'quality': 'worst',
         'outtmpl': '-',
         'quiet': True,
-        'noplaylist': True
+        'noplaylist': True,
+        'extractor_args': {'youtube': {'auth': 'oauth2'}}  # Use OAuth2 for authentication
     }
 
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info_dict = ydl.extract_info(youtube_url, download=False)
         audio_url = info_dict['url']
 
@@ -358,7 +364,7 @@ def get_video_title(youtube_url):
             'quiet': True,
             'skip_download': True,  # We don't need to download the video
         }
-        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(youtube_url, download=False)
             return info_dict.get('title', 'Unknown Title')
     except Exception as e:
