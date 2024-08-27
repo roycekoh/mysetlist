@@ -4,7 +4,7 @@
 
 MySetlist is a cutting-edge web application designed to bridge the gap between live music performances and digital playlists. It empowers music enthusiasts to effortlessly create, share, and relive their favorite concert setlists.
 
-![MySetlist Screenshot 1](https://github.com/roycekoh/setlist.io/screenshots/ss1.png?raw=true?raw=true "MySetlist Main Interface")
+![MySetlist Screenshot 1](https://github.com/roycekoh/setlist.io/screenshots/ss1.png "MySetlist Main Interface")
 
 ---
 
@@ -16,7 +16,7 @@ MySetlist is a cutting-edge web application designed to bridge the gap between l
 - **Cross-Platform Compatibility**: Enjoy your setlists on any device, anywhere.
 - **Social Sharing**: Share your curated setlists with friends and the MySetlist community.
 
-![MySetlist Screenshot 2](https://github.com/roycekoh/setlist.io/screenshots/ss2.png?raw=true?raw=true "MySetlist Main Interface")
+![MySetlist Screenshot 2](https://github.com/roycekoh/setlist.io/screenshots/ss2.png "MySetlist Main Interface")
 
 ---
 
